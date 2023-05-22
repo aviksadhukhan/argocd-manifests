@@ -54,4 +54,4 @@ spec:
       storageClassName: manual
       resources:
         requests:
-          storage: 500Mi
+          storage: 1Gi
