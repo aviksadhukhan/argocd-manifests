@@ -26,7 +26,10 @@ spec:
           mountPath: /var/lib/mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: test1234
+          valueFrom:
+              secretKeyRef:
+                name: mysqldb-secret
+                key: mysql_root_passwd
         - name: MYSQL_ROOT_HOST
           value: '%,mysql-server'
         - name: MY_POD_IP
