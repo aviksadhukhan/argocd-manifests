@@ -32,10 +32,6 @@ spec:
               key: mysql_root_passwd
         - name: MYSQL_ROOT_HOST
           value: '%'
-        - name: MY_POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
         livenessProbe:
           exec:
             command:
