@@ -26,7 +26,7 @@ spec:
           mountPath: /var/lib/mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "test1234"
+          value: test1234
         - name: MYSQL_ROOT_HOST
           value: '%,mysql-server'
         - name: MY_POD_IP
@@ -35,14 +35,14 @@ spec:
               fieldPath: status.podIP
         livenessProbe:
           exec:
-            command: ["mysqladmin", "-p$MYSQL_ROOT_PASSWORD", "ping"]
+            command: ["mysqladmin", "-uroot", "-p$MYSQL_ROOT_PASSWORD", "ping"]
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           exec:
             # Check we can execute queries over TCP (skip-networking is off).
-            command: ["mysql", "-h", "$(MY_POD_IP)", "-p$MYSQL_ROOT_PASSWORD", "-e", "SELECT 1"]
+            command: ["mysql", "-h", "$(MY_POD_IP)", "-uroot", "-p$MYSQL_ROOT_PASSWORD", "-e", "SELECT 1"]
           initialDelaySeconds: 5
           periodSeconds: 2
           timeoutSeconds: 1
