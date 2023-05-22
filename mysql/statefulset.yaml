@@ -35,14 +35,14 @@ spec:
               fieldPath: status.podIP
         livenessProbe:
           exec:
-            command: ["mysqladmin", "ping"]
+            command: ["mysqladmin", "-p$MYSQL_ROOT_PASSWORD", "ping"]
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           exec:
             # Check we can execute queries over TCP (skip-networking is off).
-            command: ["mysql", "-h", "$(MY_POD_IP)", "-e", "SELECT 1"]
+            command: ["mysql", "-h", "$(MY_POD_IP)", "-p$MYSQL_ROOT_PASSWORD", "-e", "SELECT 1"]
           initialDelaySeconds: 5
           periodSeconds: 2
           timeoutSeconds: 1
