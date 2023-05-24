@@ -1,10 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: prehookjob-demo
+  generateName: prehookjob-demo-
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation #HookSucceeded
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   template:
     spec:
@@ -14,5 +15,5 @@ spec:
         args:
         - /bin/sh
         - -c
-        - echo "Command executed from Prehook Job"
+        - echo "Command executed from Prehook Job 02"
       restartPolicy: OnFailure

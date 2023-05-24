@@ -1,10 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: posthookjob-demo
+  generateName: posthookjob-demo-
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation #HookSucceeded
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   template:
     spec:
@@ -14,5 +15,5 @@ spec:
         args:
         - /bin/sh
         - -c
-        - echo "Command executed from Posthook Job"
+        - echo "Command executed from Posthook Job 02"
       restartPolicy: OnFailure

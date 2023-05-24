@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: prehookjob-demo-
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation #HookSucceeded
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  template:
+    spec:
+      containers:
+      - name: demo
+        image: alpine
+        args:
+        - /bin/sh
+        - -c
+        - echo "Command executed from Prehook Job 01"
+      restartPolicy: OnFailure
