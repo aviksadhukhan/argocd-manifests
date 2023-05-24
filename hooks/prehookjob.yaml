@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: prehookjob-demo
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  template:
+    spec:
+      containers:
+      - name: demo
+        image: alpine
+        args:
+        - /bin/sh
+        - -c
+        - echo "Command executed from Prehook Job"
+      restartPolicy: OnFailure
